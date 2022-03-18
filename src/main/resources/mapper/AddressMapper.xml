@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.athx.computermall.mapper.AddressMapper">
+    <update id="updateNoneDefaultByUid">
+        update t_address set is_default=0 where uid=#{uid}
+    </update>
+    <update id="updateDefaultsById">
+        update t_address set is_default=1 ,modified_user=#{modifiedUser}, modified_time=#{modifiedTime} where aid=#{aid}
+    </update>
+    <delete id="deleteByAid">
+        delete from t_address where aid = #{aid}
+    </delete>
+    <!-- 使用insert, update,delete,select标签写sql -->
+    <select id="selectCountById" resultType="java.lang.Integer">
+        select count(*) from t_address where uid=#{uid}
+    </select>
+
+    <select id="selectAddressListByUid" resultType="com.athx.computermall.bean.Address">
+        select * from `t_address` where uid = #{uid} order by is_default desc,created_time desc
+    </select>
+
+
+    <select id="selectByAid" resultType="com.athx.computermall.bean.Address">
+        select * from t_address where aid = #{aid}
+    </select>
+
+
+    <select id="selectLastModify" resultType="com.athx.computermall.bean.Address">
+        select * from t_address where uid = #{uid} order by modified_time desc limit 0,1
+    </select>
+</mapper>
