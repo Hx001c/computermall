@@ -51,4 +51,19 @@ public interface ICartService {
      * @param uid
      */
     void deleteCartItem(Integer cid,Integer uid);
+
+    /**
+     * 查询勾选的商品
+     * @param uid
+     * @param cids
+     * @return
+     */
+    List<CartVo> getCartVOByCids(Integer uid,List<Integer> cids);
+
+    /**
+     * 删除所选择的商品
+
+     * @param cids
+     */
+    void deleteCheckedCartVO(Integer[] cids);
 }

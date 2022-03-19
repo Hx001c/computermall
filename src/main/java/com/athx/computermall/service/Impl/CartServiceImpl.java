@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -126,6 +127,29 @@ public class CartServiceImpl implements ICartService {
         Integer integer = cartMapper.deleteCartItem(cid);
         if (integer<1){
             throw new DeleteException("删除时出现异常");
+        }
+    }
+
+    @Override
+    public List<CartVo> getCartVOByCids(Integer uid, List<Integer> cids) {
+        List<CartVo> list = cartMapper.SelectVOByCid(cids);
+        Iterator<CartVo> iterator = list.iterator();
+        while (iterator.hasNext()){
+            CartVo next = iterator.next();
+            if (
+                    next.getUid()!=uid
+            ){
+                iterator.remove();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public void deleteCheckedCartVO(Integer[] cids) {
+        Integer integer = cartMapper.deleteCheckedCartVO(cids);
+        if (integer<1){
+            throw new DeleteException("删除所选商品出现异常");
         }
     }
 }

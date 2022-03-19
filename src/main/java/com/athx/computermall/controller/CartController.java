@@ -1,6 +1,7 @@
 package com.athx.computermall.controller;
 
 import com.athx.computermall.Vo.CartVo;
+import com.athx.computermall.bean.Cart;
 import com.athx.computermall.mapper.CartMapper;
 import com.athx.computermall.service.ICartService;
 import com.athx.computermall.utils.JsonResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,5 +61,16 @@ public class CartController extends BaseController {
         System.out.println(cid);
         cartService.deleteCartItem(cid,getUidFromSession(session));
         return new JsonResult<>(OK);
+    }
+    @RequestMapping("/delete_check_list")
+    public JsonResult<Void> deleteItem( Integer[] cids){
+        cartService.deleteCheckedCartVO(cids);
+        return new JsonResult<>(OK);
+    }
+
+    @RequestMapping("/list")
+    public JsonResult<List<CartVo>> getCartList(Integer[] cids,HttpSession session){
+        List<CartVo> cartVOByCids = cartService.getCartVOByCids(getUidFromSession(session), Arrays.asList(cids));
+        return new JsonResult<>(OK,cartVOByCids);
     }
 }

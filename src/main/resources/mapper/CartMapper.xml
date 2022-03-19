@@ -15,6 +15,13 @@
     <delete id="deleteCartItem">
         delete from t_cart where cid = #{cid}
     </delete>
+    <delete id="deleteCheckedCartVO">
+        delete from t_cart where cid in (
+        <foreach collection="cids" item="cid" separator=",">
+            #{cid}
+        </foreach>
+        )
+    </delete>
 
     <select id="selectcartByUidandPid" resultType="com.athx.computermall.bean.Cart">
         select * from t_cart where uid = #{uid} and pid= #{pid}
@@ -39,5 +46,25 @@
     </select>
     <select id="selectByCid" resultType="com.athx.computermall.Vo.CartVo">
         select * from t_cart where cid = #{cid}
+    </select>
+    <select id="SelectVOByCid" resultType="com.athx.computermall.Vo.CartVo">
+        select
+             cid,
+            uid,
+            pid,
+            t_cart.price,
+            t_cart.num,
+            t_product.title,
+            t_product.price AS realPrice,
+            t_product.image
+        from
+            t_cart
+            LEFT JOIN t_product ON t_cart.pid = t_product.id
+        where cid in (
+        <foreach collection="cids" item="cid" separator=",">
+            #{cid}
+        </foreach>
+        )
+
     </select>
 </mapper>

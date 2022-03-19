@@ -4,6 +4,7 @@ import com.athx.computermall.Vo.CartVo;
 import com.athx.computermall.bean.Cart;
 import org.apache.ibatis.annotations.Param;
 
+import java.awt.print.PrinterGraphics;
 import java.util.Date;
 import java.util.List;
 
@@ -60,5 +61,19 @@ public interface CartMapper {
      * @return
      */
     Integer deleteCartItem(Integer cid);
+
+    /**
+     * 查询所选择的商品
+     * @param cids
+     * @return
+     */
+     List<CartVo> SelectVOByCid(List<Integer> cids);
+
+    /**
+     * 删除所选择的商品
+     * @param cids
+     * @returns
+     */
+     Integer deleteCheckedCartVO(Integer[] cids);
 
 }

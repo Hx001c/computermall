@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.xml.bind.PrintConversionEvent;
+import java.util.Arrays;
 
 /**
  * @author ：Hexin
@@ -21,11 +22,13 @@ public class cartTest {
     private CartMapper cartMapper;
     @Test
     void test1(){
-        Cart cart = new Cart();
-        cart.setCid(1);
-        cart.setNum(1);
-        cart.setUid(4);
-        cart.setPrice((long) 1999);
-        cartMapper.insertOne(cart);
+//        Cart cart = new Cart();
+//        cart.setCid(1);
+//        cart.setNum(1);
+//        cart.setUid(4);
+//        cart.setPrice((long) 1999);
+//        cartMapper.insertOne(cart);
+
+        cartMapper.SelectVOByCid(Arrays.asList(1,2,3,4));
     }
 }
